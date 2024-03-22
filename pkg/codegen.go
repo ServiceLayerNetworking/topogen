@@ -39,7 +39,7 @@ type TopoCodeGenerator struct {
 
 func (g *TopoCodeGenerator) Generate() error {
 	// open kubernetes config file for appending
-
+	g.K8sOutfile = fmt.Sprintf("%s/kubernetes.yaml", g.CodeOutputDir)
 	k8sFile, err := os.OpenFile(g.K8sOutfile, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Fatalf("failed to open kubernetes config file: %v", err)

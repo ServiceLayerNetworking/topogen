@@ -10,7 +10,7 @@ import (
 
 func main() {
 	// parse command-line arguments for topology file
-	filename := flag.String("filename", "topology.yaml", "path to topology file")
+	filename := flag.String("topology", "topology.yaml", "path to topology file")
 	codeOutputDir := flag.String("codeout", "./generated-topology", "path to output generated code")
 	experimentName := flag.String("experiment", "experiment", "name of the experiment")
 	containerRegistryPrefix := flag.String("registry", "ghcr.io/adiprerepa", "container registry prefix (for example ghcr.io/adiprerepa or gangmuk)")
