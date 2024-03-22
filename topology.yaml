@@ -36,37 +36,3 @@ services:
         path: /users
         computes: 0
         returnSize: 5120
-# services:
-#   - name: frontend
-#     - method: POST
-#       path: /composepost
-#       # computes: 0
-#       calls:
-#         - name: posts
-#           method: POST
-#           path: /posts
-#           size: 5242880
-#         - name: users
-#           method: GET
-#           path: /users
-#     - method: GET
-#       path: /posts/feed
-#       # computes: 0
-#       calls:
-#         - name: posts
-#           method: GET
-#           path: /posts
-#           size: 5120
-#   - name: posts
-#     - method: GET
-#       path: /posts
-#       # computes: 0
-#       returnSize: 10240
-#     - method: POST
-#       path: /posts
-#       # computes: 0
-#   - name: users
-#     - method: GET
-#       path: /users
-#       # computes: 0
-#       returnSize: 5120
