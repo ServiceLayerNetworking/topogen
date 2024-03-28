@@ -18,7 +18,6 @@ services:
     methods:
       - method: POST
         path: /postfoo
-        computes: 0
         calls:
           - name: bar
             method: POST
@@ -28,12 +27,13 @@ services:
     methods:
       - method: POST
         path: /postbar
-        computes: 100
+        computeAmount: 20
+        computeDuration: 50
         returnSize: 1024
 ```
 
 The above topology is very simple, just foo calls bar. We also define that the endpoint on foo is `/postfoo`, and when called, it does no compute and automatically calls `/getbar` on bar, with 1024 bytes of data.
-We define bar to do 100 units of compute when `/postbar` is called, and to return with 1024 bytes of data, meaning the request-response session caused 1KB of ingress and 1KB of egress.
+We define bar to do 20 millicores of compute for 50 milliseconds when `/postbar` is called, and to return with 1024 bytes of data, meaning the request-response session caused 1KB of ingress and 1KB of egress.
 
 You can run the tool with:
 ```bash
@@ -59,7 +59,6 @@ services:
     methods:
       - method: POST
         path: /composepost
-        computes: 0
         calls:
           - name: posts
             method: POST
@@ -71,7 +70,6 @@ services:
             size: 0
       - method: GET
         path: /posts/feed
-        computes: 0
         calls:
           - name: posts
             method: GET
@@ -81,16 +79,13 @@ services:
     methods:
       - method: GET
         path: /posts
-        computes: 0
         returnSize: 10240
       - method: POST
         path: /posts
-        computes: 0
   - name: users
     methods:
       - method: GET
         path: /users
-        computes: 0
         returnSize: 5120
 ```
 to this in one command:
