@@ -26,12 +26,12 @@ func main() {
 		log.Fatalf("failed to parse topology file: %v", err)
 	}
 	generator := &pkg.TopoCodeGenerator{
-		CodeOutputDir: *codeOutputDir,
-		Topo: topology,
-		K8sOutfile: *kubernetesOutput,
-		ExperimentName: *experimentName,
+		CodeOutputDir:           *codeOutputDir,
+		Topo:                    topology,
+		K8sOutfile:              *kubernetesOutput,
+		ExperimentName:          *experimentName,
 		ContainerRegistryPrefix: *containerRegistryPrefix,
-		BuildAndPush: *buildAndPush,
+		BuildAndPush:            *buildAndPush,
 	}
 	generator.Generate()
 }

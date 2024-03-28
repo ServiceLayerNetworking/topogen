@@ -7,11 +7,38 @@ import (
 	"log"
 	"net/http"
 	"os"
-
+    "runtime"
+    "time"
 	"github.com/gin-gonic/gin"
 )
 
 var propogate = []string{"X-Request-Id", "X-B3-Traceid", "X-B3-Spanid", "X-B3-ParentSpanid", "X-B3-Sampled"}
+
+func RunCPULoad(coresCount int, timeMillis int, percentage int) {
+	if timeMillis == 0 || percentage == 0 {
+        return
+    }
+    runtime.GOMAXPROCS(coresCount)
+
+	runMicrosecond := 1000 * percentage
+	sleepMicrosecond := (100 - percentage) * 1000
+	for i := 0; i < coresCount; i++ {
+		go func() {
+			runtime.LockOSThread()
+			// every milliseconds, run for runMicrosecond microseconds, and sleep for sleepMicrosecond microseconds
+			for {
+				begin := time.Now()
+				for {
+					if time.Now().Sub(begin) > time.Duration(runMicrosecond) * time.Microsecond {
+						break
+					}
+				}
+				time.Sleep(time.Duration(sleepMicrosecond) * time.Microsecond)
+			}
+		}()
+	}
+	time.Sleep(time.Duration(timeMillis) * time.Millisecond)
+}
 
 func main() {
 	gin.DefaultWriter = os.Stdout
@@ -31,6 +58,7 @@ func main() {
 {{ range . }}
 func {{ printf "%s%s" .Method (replace .Path "/" "") }}(c *gin.Context) {
     var data []byte
+    RunCPULoad(1, {{ .ComputeDuration }}, {{ .ComputeAmount }} / 10)
     {{ if .Calls }}
     var req *http.Request
     var err error

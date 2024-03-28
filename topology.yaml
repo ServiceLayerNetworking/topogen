@@ -3,7 +3,8 @@ services:
     methods:
       - method: POST
         path: /composepost
-        computes: 0
+        computeAmount: 20
+        computeDuration: 100
         calls:
           - name: posts
             method: POST
@@ -15,7 +16,8 @@ services:
             size: 0
       - method: GET
         path: /posts/feed
-        computes: 0
+        computeAmount: 0
+        computeDuration: 0
         calls:
           - name: posts
             method: GET
@@ -25,14 +27,17 @@ services:
     methods:
       - method: GET
         path: /posts
-        computes: 0
+        computeAmount: 0
+        computeDuration: 0
         returnSize: 10240
       - method: POST
         path: /posts
-        computes: 0
+        computeAmount: 0
+        computeDuration: 0
   - name: users
     methods:
       - method: GET
         path: /users
-        computes: 0
+        computeAmount: 0
+        computeDuration: 0
         returnSize: 5120

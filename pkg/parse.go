@@ -20,7 +20,8 @@ type Service struct {
 type Method struct {
 	Method     string `yaml:"method"`
 	Path       string `yaml:"path"`
-	Computes   int    `yaml:"computes"`
+	ComputeAmount   int    `yaml:"computeAmount"`
+	ComputeDuration int    `yaml:"computeDuration"`
 	Calls      []Call `yaml:"calls"`
 	ReturnSize int    `yaml:"returnSize"`
 }
