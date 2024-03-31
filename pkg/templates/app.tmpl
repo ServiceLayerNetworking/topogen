@@ -14,30 +14,37 @@ import (
 
 var propogate = []string{"X-Request-Id", "X-B3-Traceid", "X-B3-Spanid", "X-B3-ParentSpanid", "X-B3-Sampled"}
 
-func RunCPULoad(coresCount int, timeMillis int, percentage int) {
-	if timeMillis == 0 || percentage == 0 {
-        return
-    }
-    runtime.GOMAXPROCS(coresCount)
+func RunCPULoad(millicoreCount int, timeMillis int) {
+	if timeMillis == 0 || millicoreCount == 0 {
+		return
+	}
 
-	runMicrosecond := 1000 * percentage
-	sleepMicrosecond := (100 - percentage) * 1000
-	for i := 0; i < coresCount; i++ {
-		go func() {
-			runtime.LockOSThread()
-			// every milliseconds, run for runMicrosecond microseconds, and sleep for sleepMicrosecond microseconds
-			for {
+	percentage := millicoreCount / 10
+	runFor := 1000 * percentage
+	sleepFor := 1000 * (100 - percentage)
+	done := make(chan struct{})
+	go func() {
+		runtime.LockOSThread()
+		// every milliseconds, run for runMicrosecond microseconds, and sleep for sleepMicrosecond microseconds
+		for {
+			select {
+			case <-done:
+				fmt.Printf("Done\n")
+				runtime.UnlockOSThread()
+				return
+			default:
 				begin := time.Now()
 				for {
-					if time.Now().Sub(begin) > time.Duration(runMicrosecond) * time.Microsecond {
+					if time.Now().Sub(begin) > time.Duration(runFor)*time.Microsecond {
 						break
 					}
 				}
-				time.Sleep(time.Duration(sleepMicrosecond) * time.Microsecond)
+				time.Sleep(time.Duration(sleepFor) * time.Microsecond)
 			}
-		}()
-	}
+		}
+	}()
 	time.Sleep(time.Duration(timeMillis) * time.Millisecond)
+	done <- struct{}{}
 }
 
 func main() {
@@ -58,7 +65,7 @@ func main() {
 {{ range . }}
 func {{ printf "%s%s" .Method (replace .Path "/" "") }}(c *gin.Context) {
     var data []byte
-    RunCPULoad(1, {{ .ComputeDuration }}, {{ .ComputeAmount }} / 10)
+    RunCPULoad({{ .ComputeAmount }}, {{ .ComputeDuration }})
     {{ if .Calls }}
     var req *http.Request
     var err error

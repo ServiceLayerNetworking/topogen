@@ -1,0 +1,25 @@
+services:
+  - name: frontend
+    methods:
+      - method: POST
+        path: /light
+        calls:
+          - name: compute-node
+            method: POST
+            path: /light
+      - method: POST
+        path: /heavy
+        calls:
+          - name:  vcompute-node
+            method: POST
+            path: /heavy
+  - name: compute-node
+    methods:
+      - method: POST
+        path: /light
+        computeAmount: 10
+        computeDuration: 20
+      - method: POST
+        path: /heavy
+        computeAmount: 100
+        computeDuration: 20
