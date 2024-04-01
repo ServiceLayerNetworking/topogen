@@ -22,6 +22,7 @@ type Method struct {
 	Path       string `yaml:"path"`
 	ComputeAmount   int    `yaml:"computeAmount"`
 	ComputeDuration int    `yaml:"computeDuration"`
+	WriteFileSize  int    `yaml:"writeFileSize"`
 	Calls      []Call `yaml:"calls"`
 	ReturnSize int    `yaml:"returnSize"`
 }

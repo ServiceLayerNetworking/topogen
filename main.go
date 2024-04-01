@@ -1,47 +1,67 @@
 package main
 
 import (
+	"crypto/rand"
 	_ "embed"
 	"flag"
 	"fmt"
-	"github.com/servicelayernetworking/topogen/pkg"
 	"log"
 	"os"
 	"runtime"
 	"time"
+
+	"github.com/servicelayernetworking/topogen/pkg"
 )
+
+
+func WriteToFile(filename string, fileSize int) {
+	file, err := os.Create(filename)
+	if err != nil {
+		file, err = os.Open(filename)
+		if err != nil {
+			fmt.Printf("failed to open file: %v\n", err)
+			return
+		}
+	}
+	data := make([]byte, fileSize)
+	rand.Read(data)
+	if _, err := file.Write(data); err != nil {
+		fmt.Printf("failed to write to file: %v\n", err)
+	}
+}
 
 func RunCPULoad(millicoreCount int, timeMillis int) {
 	if timeMillis == 0 || millicoreCount == 0 {
 		return
 	}
 
-	percentage := millicoreCount / 10
-	runFor := 1000 * percentage
-	sleepFor := 1000 * (100 - percentage)
-	done := make(chan struct{})
-	go func() {
-		runtime.LockOSThread()
-		// every milliseconds, run for runMicrosecond microseconds, and sleep for sleepMicrosecond microseconds
-		for {
-			select {
-			case <-done:
-				fmt.Printf("Done\n")
-				runtime.UnlockOSThread()
-				return
-			default:
-				begin := time.Now()
-				for {
-					if time.Now().Sub(begin) > time.Duration(runFor)*time.Microsecond {
-						break
-					}
+	// 500 millicore -> 500 microseconds
+	runFor := time.Duration(millicoreCount) * time.Microsecond
+	sleepFor := time.Duration(1000-millicoreCount) * time.Microsecond
+
+	// runtime.LockOSThread()
+	// make timer
+	timer := time.NewTimer(time.Duration(timeMillis) * time.Millisecond)
+	d := time.Duration(timeMillis) * time.Millisecond
+
+	fmt.Printf("Timer duration %s, sleepFor %s, runFor %s\n", d.String(), sleepFor.String(), runFor.String())
+	fmt.Printf("starting load for %dms, current time %d\n", timeMillis, time.Now().UnixMilli())
+	for {
+		select {
+		case <-timer.C:
+			fmt.Printf("finished load at for %dms, current time %d\n", timeMillis, time.Now().UnixMilli())
+			runtime.UnlockOSThread()
+			return
+		default:
+			begin := time.Now()
+			for {
+				if time.Since(begin) > runFor {
+					break
 				}
-				time.Sleep(time.Duration(sleepFor) * time.Microsecond)
 			}
+			time.Sleep(sleepFor)
 		}
-	}()
-	time.Sleep(time.Duration(timeMillis) * time.Millisecond)
-	done <- struct{}{}
+	}
 }
 
 func main() {
@@ -70,4 +90,5 @@ func main() {
 		BuildAndPush:            *buildAndPush,
 	}
 	generator.Generate()
+	fmt.Printf("Generated code in %s\n", *codeOutputDir)
 }

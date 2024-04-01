@@ -10,16 +10,25 @@ services:
       - method: POST
         path: /heavy
         calls:
-          - name:  vcompute-node
+          - name:  compute-node
             method: POST
             path: /heavy
+      - method: POST
+        path: /nothing
+        calls:
+          - name: compute-node
+            method: POST
+            path: /nothing
   - name: compute-node
     methods:
       - method: POST
         path: /light
         computeAmount: 10
         computeDuration: 20
+        writeFileSize: 10240
       - method: POST
         path: /heavy
-        computeAmount: 100
-        computeDuration: 20
+        computeAmount: 1000
+        computeDuration: 30
+      - method: POST
+        path: /nothing
