@@ -14,6 +14,7 @@ type Topology struct {
 type Service struct {
 	Name    string   `yaml:"name"`
 	Methods []Method `yaml:"methods"`
+	GatewayNextHop string `yaml:"gatewayNextHop"`
 	Image string
 }
 

@@ -1,34 +1,107 @@
 services:
+  - name: slate-ingress
+    gatewayNextHop: frontend
   - name: frontend
     methods:
       - method: POST
-        path: /light
+        path: /lightSameLatency
         calls:
           - name: compute-node
             method: POST
-            path: /light
+            path: /lightSameLatency
       - method: POST
-        path: /heavy
+        path: /heavySameLatency
         calls:
           - name:  compute-node
             method: POST
-            path: /heavy
+            path: /heavySameLatency
+      - method: POST
+        path: /lightSameCompute
+        calls:
+          - name: compute-node
+            method: POST
+            path: /lightSameCompute
+      - method: POST
+        path: /heavySameCompute
+        calls:
+          - name:  compute-node
+            method: POST
+            path: /heavySameCompute
+      - method: POST
+        path: /lightwrite
+        calls:
+          - name: compute-node
+            method: POST
+            path: /lightwrite
+      - method: POST
+        path: /heavywrite
+        calls:
+          - name: compute-node
+            method: POST
+            path: /heavywrite
       - method: POST
         path: /nothing
         calls:
           - name: compute-node
             method: POST
             path: /nothing
+      - method: POST
+        path: /write1kb
+        calls:
+          - name: compute-node
+            method: POST
+            path: /write1kb
+      - method: POST
+        path: /write10kb
+        calls:
+          - name: compute-node
+            method: POST
+            path: /write10kb
+      - method: POST
+        path: /write100kb
+        calls:
+          - name: compute-node
+            method: POST
+            path: /write100kb
+      - method: POST
+        path: /write1mb
+        calls:
+          - name: compute-node
+            method: POST
+            path: /write1mb
   - name: compute-node
     methods:
       - method: POST
-        path: /light
-        computeAmount: 10
+        path: /lightSameLatency
+        computeAmount: 100
         computeDuration: 20
+      - method: POST
+        path: /heavySameLatency
+        computeAmount: 500
+        computeDuration: 20
+      - method: POST
+        path: /lightSameCompute
+        computeAmount: 200
+        computeDuration: 10
+      - method: POST
+        path: /heavySameCompute
+        computeAmount: 200
+        computeDuration: 50
+      - method: POST
+        path: /write1kb
+        writeFileSize: 1024
+      - method: POST
+        path: /write10kb
         writeFileSize: 10240
       - method: POST
-        path: /heavy
-        computeAmount: 1000
-        computeDuration: 30
+        path: /write100kb
+        writeFileSize: 102400
+      - method: POST
+        path: /write1mb
+        writeFileSize: 1048576
       - method: POST
         path: /nothing
+      
+# For all, area under the curve is the same
+# Same latency (20ms), different computeAmount (100 vs 500) 
+# Different latency (10ms vs 50ms), same computeAmount (200)

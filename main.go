@@ -13,7 +13,6 @@ import (
 	"github.com/servicelayernetworking/topogen/pkg"
 )
 
-
 func WriteToFile(filename string, fileSize int) {
 	file, err := os.Create(filename)
 	if err != nil {
@@ -25,8 +24,11 @@ func WriteToFile(filename string, fileSize int) {
 	}
 	data := make([]byte, fileSize)
 	rand.Read(data)
-	if _, err := file.Write(data); err != nil {
+	if n, err := file.Write(data); err != nil {
 		fmt.Printf("failed to write to file: %v\n", err)
+	} else {
+		fmt.Printf("wrote %d bytes to %s\n", n, filename)
+
 	}
 }
 

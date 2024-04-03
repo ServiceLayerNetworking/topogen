@@ -48,6 +48,26 @@ func (g *TopoCodeGenerator) Generate() error {
 	k8sFile.Truncate(0)
 	defer k8sFile.Close()
 	for _, svc := range g.Topo.Services {
+		if svc.GatewayNextHop != "" {
+			for _, nextHop := range g.Topo.Services {
+				if nextHop.Name == svc.GatewayNextHop {
+					for _, nxtMethod := range nextHop.Methods {
+						m := Method {
+							Method: "POST",
+							Path: nxtMethod.Path,
+						}
+						m.Calls = []Call{
+							{
+								Name:   nextHop.Name,
+								Method: "POST",
+								Path: nxtMethod.Path,
+							},
+						}
+						svc.Methods = append(svc.Methods, m)
+					}
+				}
+			}
+		}
 		imageName := g.GenerateService(svc)
 		svc.Image = imageName + ":latest"
 		tmpl, err := template.New("service").Parse(serviceTmpl)

@@ -15,6 +15,9 @@ import (
 var propogate = []string{"X-Request-Id", "X-B3-Traceid", "X-B3-Spanid", "X-B3-ParentSpanid", "X-B3-Sampled"}
 
 func WriteToFile(filename string, fileSize int) {
+	if fileSize == 0 {
+		return
+	}
 	file, err := os.Create(filename)
 	if err != nil {
 		file, err = os.Open(filename)
@@ -30,36 +33,49 @@ func WriteToFile(filename string, fileSize int) {
 	}
 }
 
-func RunCPULoad(millicoreCount int, timeMillis int) {
-	if timeMillis == 0 || millicoreCount == 0 {
+func RunCPULoad(millicores int, timeMillis int) {
+	if millicores == 0 {
 		return
 	}
 
-	// 500 millicore -> 500 microseconds
-	runFor := time.Duration(millicoreCount) * time.Microsecond
-	sleepFor := time.Duration(1000-millicoreCount) * time.Microsecond
-
+	cpuPct := millicores / 10
+	runFor := time.Duration(1000*cpuPct) * time.Microsecond
+	sleepFor := time.Duration(1000*(100-cpuPct)) * time.Microsecond
+	fmt.Printf("Worker sleepFor %s, runFor %s\n", sleepFor.String(), runFor.String())
 	runtime.LockOSThread()
-	// make timer
-	timer := time.NewTimer(time.Duration(timeMillis) * time.Millisecond)
-	d := time.Duration(timeMillis) * time.Millisecond
+	// every milliseconds, run for runMicrosecond microseconds, and sleep for sleepMicrosecond microseconds
 
-	fmt.Printf("Timer duration %s, sleepFor %s, runFor %s\n", d.String(), sleepFor.String(), runFor.String())
-	fmt.Printf("starting load for %dms, current time %d\n", timeMillis, time.Now().UnixMilli())
+	ch := time.After(time.Duration(timeMillis) * time.Millisecond)
+startLoop:
 	for {
 		select {
-		case <-timer.C:
-			fmt.Printf("finished load at for %dms, current time %d\n", timeMillis, time.Now().UnixMilli())
+		case <-ch:
 			runtime.UnlockOSThread()
 			return
 		default:
 			begin := time.Now()
 			for {
-				if time.Since(begin) > runFor {
-					break
+				select {
+				case <-ch:
+					fmt.Printf("Done\n")
+					runtime.UnlockOSThread()
+					return
+				default:
+					if time.Since(begin) > runFor {
+						for {
+							select {
+							case <-ch:
+								fmt.Printf("Done\n")
+								runtime.UnlockOSThread()
+								return
+							case <-time.After(sleepFor):
+								continue startLoop
+							}
+						}
+					}
+
 				}
 			}
-			time.Sleep(sleepFor)
 		}
 	}
 }
@@ -83,7 +99,7 @@ func main() {
 func {{ printf "%s%s" .Method (replace .Path "/" "") }}(c *gin.Context) {
     var data []byte
     RunCPULoad({{ .ComputeAmount }}, {{ .ComputeDuration }})
-	WriteToFile("/dev/null", {{ .WriteFileSize }})
+	WriteToFile("out.txt", {{ .WriteFileSize }})
 	fmt.Printf("Done running CPU Load. Now making HTTP calls\n")
     {{ if .Calls }}
     var req *http.Request
@@ -113,6 +129,9 @@ func {{ printf "%s%s" .Method (replace .Path "/" "") }}(c *gin.Context) {
     {{ end }}
     data = make([]byte, {{ .ReturnSize }})
     rand.Read(data)
+	if err := os.Truncate("out.txt", 0); err != nil {
+    	fmt.Printf("Failed to truncate: %v", err)
+	}
     c.Data(http.StatusOK, "application/octet-stream", data)
 }
 {{ end -}}
