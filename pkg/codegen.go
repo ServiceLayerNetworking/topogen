@@ -80,7 +80,7 @@ func (g *TopoCodeGenerator) Generate() error {
 		}
 		k8sFile.Write(buf.Bytes())
 		// write newline
-		fmt.Printf("Writing %d bytes to %s\n", len([]byte("\n")), g.K8sOutfile)
+		// fmt.Printf("Writing %d bytes to %s\n", len([]byte("\n")), g.K8sOutfile)
 		k8sFile.Write([]byte("\n"))
 	}
 	return nil
