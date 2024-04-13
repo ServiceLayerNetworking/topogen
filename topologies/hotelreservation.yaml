@@ -1,0 +1,35 @@
+services:
+  - name: slateingress
+    methods:
+      - method: POST
+        path: /user
+        calls:
+          - name: frontend
+            port: 5000
+            method: POST
+            path: /user
+            propogateQueryParams: true
+      - method: GET
+        path: /recommendations
+        calls:
+          - name: frontend
+            port: 5000
+            method: GET
+            path: /recommendations
+            propogateQueryParams: true
+      - method: GET
+        path: /hotels
+        calls:
+          - name: frontend
+            port: 5000
+            method: GET
+            path: /hotels
+            propogateQueryParams: true
+      - method: POST
+        path: /reservation
+        calls:
+          - name: frontend
+            port: 5000
+            method: POST
+            path: /reservation
+            propogateQueryParams: true

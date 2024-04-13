@@ -86,8 +86,20 @@ func (g *TopoCodeGenerator) Generate() error {
 	return nil
 }
 
+func (g *TopoCodeGenerator) CleanseService(svc *Service) {
+	// todo add custom listening port values
+	for i, method := range svc.Methods {
+		for j, call := range method.Calls {
+			if call.Port == 0 {
+				svc.Methods[i].Calls[j].Port = 8080
+			}
+		}
+	}
+}
+
 func (g *TopoCodeGenerator) GenerateService(svc Service) string {
 	fmt.Printf("Generating service %s\n", svc.Name)
+	g.CleanseService(&svc)
 	funcMap := template.FuncMap{
 		"replace": replace,
 	}
@@ -97,6 +109,7 @@ func (g *TopoCodeGenerator) GenerateService(svc Service) string {
 	}
 	// execute template
 	var buf bytes.Buffer
+	fmt.Printf("yo %v", svc)
 	if err := tmpl.Execute(&buf, svc); err != nil {
 		log.Fatalf("failed to execute template: %v", err)
 	}

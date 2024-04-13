@@ -30,9 +30,11 @@ type Method struct {
 
 type Call struct {
 	Name   string `yaml:"name"`
+	Port  int    `yaml:"port"`
 	Method string `yaml:"method"`
 	Path   string `yaml:"path"`
 	Size   int    `yaml:"size"`
+	PropogateQueryParams string `yaml:"propogateQueryParams"`
 }
 
 
