@@ -4,8 +4,10 @@ import (
 	"bytes"
 	"crypto/rand"
 	"fmt"
+	"strings"
 	"log"
 	"net/http"
+	"io"
 	"os"
     "runtime"
     "time"
@@ -84,6 +86,7 @@ func main() {
 	gin.DefaultWriter = os.Stdout
 	log.Printf("Starting metrics-handler, propogating %d headers", len(propogate))
 	fmt.Printf("making go happy %s", bytes.NewBuffer([]byte("")))
+	io.Copy(os.Stdout, strings.NewReader("Making go happy again"))
     r := gin.Default()
 {{ with .Methods }}
 {{ range . }} {{ if eq .Method "GET" }}   r.GET("{{ .Path }}", {{ printf "%s%s" .Method (replace .Path "/" "") }}) 
@@ -122,14 +125,18 @@ func {{ printf "%s%s" .Method (replace .Path "/" "") }}(c *gin.Context) {
 	}
     req.Header.Set("Content-Length", fmt.Sprintf("%d", len(data)))
 	{{ if eq .PropogateQueryParams "true" }}
-	for k, v := range c.Request.URL.Query() {
-		req.URL.Query().Add(k, v[0])
-	}
+	req.URL.RawQuery = c.Request.URL.Query().Encode()
 	{{ end -}}
-    _, err = client.Do(req)
+    resp, err := client.Do(req)
     if err != nil {
         panic(err)
     }
+	defer resp.Body.Close()
+	if resp.StatusCode != http.StatusOK {
+		fmt.Printf("Failed to make request: %d", resp.StatusCode)
+	}
+	bodyB, _ := io.ReadAll(resp.Body)
+	fmt.Printf("Response: %s\n", string(bodyB))
     {{ end }}
     {{ end }}
     data = make([]byte, {{ .ReturnSize }})
