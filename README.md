@@ -1,4 +1,4 @@
-# Microservice Topology Generator
+# 🌃 Microservice Topology Generator
 
 ### Handcrafting Benchmarks Sucks
 The aim of this tool is to automatically generate code and config for given microservice topologies. We find that the functionality of microservices
