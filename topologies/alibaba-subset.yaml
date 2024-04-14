@@ -1,0 +1,158 @@
+services:
+    - name: s69e8
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+          calls:
+            - name: s8fc3
+              method: POST
+              path: /light
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+          calls:
+            - name: s8fc3
+              method: POST
+              path: /heavy
+    - name: s6f83
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+          callConcurrency: 4
+          calls:
+            - name: saaee
+              method: POST
+              path: /light
+            - name: mc9653
+              method: POST
+              path: /light
+            - name: s23bd
+              method: POST
+              path: /light
+            - name: mc39aa
+              method: POST
+              path: /light
+            - name: mc59ee
+              method: POST
+              path: /light
+            - name: mcd3a0
+              method: POST
+              path: /light
+            - name: mcbbb9
+              method: POST
+              path: /light
+            - name: mcde6d
+              method: POST
+              path: /light
+            - name: s4dd6
+              method: POST
+              path: /light
+            - name: mc676c
+              method: POST
+              path: /light
+            - name: s222f
+              method: POST
+              path: /light
+            - name: mc46a6
+              method: POST
+              path: /light
+            - name: mc01d6
+              method: POST
+              path: /light
+            - name: s6190
+              method: POST
+              path: /light
+            - name: sd03b
+              method: POST
+              path: /light
+            - name: mcc964
+              method: POST
+              path: /light
+            - name: mc2efe
+              method: POST
+              path: /light
+            - name: mc37e7
+              method: POST
+              path: /light
+            - name: s0696
+              method: POST
+              path: /light
+            - name: mc22fa
+              method: POST
+              path: /light
+            - name: s0696
+              method: POST
+              path: /light
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+          calls:
+            - name: saaee
+              method: POST
+              path: /heavy
+            - name: mc9653
+              method: POST
+              path: /heavy
+            - name: s23bd
+              method: POST
+              path: /heavy
+            - name: mc39aa
+              method: POST
+              path: /heavy
+            - name: mc59ee
+              method: POST
+              path: /heavy
+            - name: mcd3a0
+              method: POST
+              path: /heavy
+            - name: mcbbb9
+              method: POST
+              path: /heavy
+            - name: mcde6d
+              method: POST
+              path: /heavy
+            - name: s4dd6
+              method: POST
+              path: /heavy
+            - name: mc676c
+              method: POST
+              path: /heavy
+            - name: s222f
+              method: POST
+              path: /heavy
+            - name: mc46a6
+              method: POST
+              path: /heavy
+            - name: mc01d6
+              method: POST
+              path: /heavy
+            - name: s6190
+              method: POST
+              path: /heavy
+            - name: sd03b
+              method: POST
+              path: /heavy
+            - name: mcc964
+              method: POST
+              path: /heavy
+            - name: mc2efe
+              method: POST
+              path: /heavy
+            - name: mc37e7
+              method: POST
+              path: /heavy
+            - name: s0696
+              method: POST
+              path: /heavy
+            - name: mc22fa
+              method: POST
+              path: /heavy
+            - name: s0696
+              method: POST
+              path: /heavy

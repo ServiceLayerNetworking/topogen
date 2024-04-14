@@ -25,6 +25,8 @@ type Method struct {
 	ComputeDuration int    `yaml:"computeDuration"`
 	WriteFileSize  int    `yaml:"writeFileSize"`
 	Calls      []Call `yaml:"calls"`
+	CallConcurrency int    `yaml:"callConcurrency,omitempty"`
+	ConcurrentCalls [][]Call `yaml:"concurrentCalls,omitempty"`
 	ReturnSize int    `yaml:"returnSize"`
 }
 

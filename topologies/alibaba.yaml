@@ -1,0 +1,809 @@
+services:
+    - name: sb08b
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+          calls:
+            - name: s6b3d
+              method: POST
+              path: /light
+            - name: sda5a
+              method: POST
+              path: /light
+            - name: s7325
+              method: POST
+              path: /light
+            - name: s69e8
+              method: POST
+              path: /light
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+          calls:
+            - name: s6b3d
+              method: POST
+              path: /heavy
+            - name: sda5a
+              method: POST
+              path: /heavy
+            - name: s7325
+              method: POST
+              path: /heavy
+            - name: s69e8
+              method: POST
+              path: /heavy
+    - name: mcc964
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: db2af0
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 10240
+        - method: POST
+          path: /heavy
+          writeFileSize: 102400
+    - name: s379e
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+    - name: s2be3
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+    - name: sfd4d
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+    - name: s0696
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+          calls:
+            - name: mc22fa
+              method: POST
+              path: /light
+            - name: db37c2
+              method: POST
+              path: /light
+            - name: db80f6
+              method: POST
+              path: /light
+            - name: mc2dd6
+              method: POST
+              path: /light
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+          calls:
+            - name: mc22fa
+              method: POST
+              path: /heavy
+            - name: db37c2
+              method: POST
+              path: /heavy
+            - name: db80f6
+              method: POST
+              path: /heavy
+            - name: mc2dd6
+              method: POST
+              path: /heavy
+    - name: mc2dd6
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: mc660d
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: s4dd6
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+          calls:
+            - name: s2387
+              method: POST
+              path: /light
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+          calls:
+            - name: s2387
+              method: POST
+              path: /heavy
+    - name: s598a
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+    - name: s30a8
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+          calls:
+            - name: mcc964
+              method: POST
+              path: /light
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+          calls:
+            - name: mcc964
+              method: POST
+              path: /heavy
+    - name: mcbbb9
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: mcde6d
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: mc12c6
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: s8fc3
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+    - name: saaee
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+          calls:
+            - name: db2af0
+              method: POST
+              path: /light
+            - name: mc660d
+              method: POST
+              path: /light
+            - name: mc59ee
+              method: POST
+              path: /light
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+          calls:
+            - name: db2af0
+              method: POST
+              path: /heavy
+            - name: mc660d
+              method: POST
+              path: /heavy
+            - name: mc59ee
+              method: POST
+              path: /heavy
+    - name: s69e8
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+          calls:
+            - name: s8fc3
+              method: POST
+              path: /light
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+          calls:
+            - name: s8fc3
+              method: POST
+              path: /heavy
+    - name: mc9653
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: mc676c
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: s222f
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+          calls:
+            - name: db3dd1
+              method: POST
+              path: /light
+            - name: mc676c
+              method: POST
+              path: /light
+            - name: mc46a6
+              method: POST
+              path: /light
+            - name: mc01d6
+              method: POST
+              path: /light
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+          calls:
+            - name: db3dd1
+              method: POST
+              path: /heavy
+            - name: mc676c
+              method: POST
+              path: /heavy
+            - name: mc46a6
+              method: POST
+              path: /heavy
+            - name: mc01d6
+              method: POST
+              path: /heavy
+    - name: mc22fa
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: mcc324
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: s6f83
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+          calls:
+            - name: saaee
+              method: POST
+              path: /light
+            - name: mc9653
+              method: POST
+              path: /light
+            - name: s23bd
+              method: POST
+              path: /light
+            - name: mc39aa
+              method: POST
+              path: /light
+            - name: mc59ee
+              method: POST
+              path: /light
+            - name: mcd3a0
+              method: POST
+              path: /light
+            - name: mcbbb9
+              method: POST
+              path: /light
+            - name: mcde6d
+              method: POST
+              path: /light
+            - name: s4dd6
+              method: POST
+              path: /light
+            - name: mc676c
+              method: POST
+              path: /light
+            - name: s222f
+              method: POST
+              path: /light
+            - name: mc46a6
+              method: POST
+              path: /light
+            - name: mc01d6
+              method: POST
+              path: /light
+            - name: s6190
+              method: POST
+              path: /light
+            - name: sd03b
+              method: POST
+              path: /light
+            - name: mcc964
+              method: POST
+              path: /light
+            - name: mc2efe
+              method: POST
+              path: /light
+            - name: mc37e7
+              method: POST
+              path: /light
+            - name: s0696
+              method: POST
+              path: /light
+            - name: mc22fa
+              method: POST
+              path: /light
+            - name: s0696
+              method: POST
+              path: /light
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+          calls:
+            - name: saaee
+              method: POST
+              path: /heavy
+            - name: mc9653
+              method: POST
+              path: /heavy
+            - name: s23bd
+              method: POST
+              path: /heavy
+            - name: mc39aa
+              method: POST
+              path: /heavy
+            - name: mc59ee
+              method: POST
+              path: /heavy
+            - name: mcd3a0
+              method: POST
+              path: /heavy
+            - name: mcbbb9
+              method: POST
+              path: /heavy
+            - name: mcde6d
+              method: POST
+              path: /heavy
+            - name: s4dd6
+              method: POST
+              path: /heavy
+            - name: mc676c
+              method: POST
+              path: /heavy
+            - name: s222f
+              method: POST
+              path: /heavy
+            - name: mc46a6
+              method: POST
+              path: /heavy
+            - name: mc01d6
+              method: POST
+              path: /heavy
+            - name: s6190
+              method: POST
+              path: /heavy
+            - name: sd03b
+              method: POST
+              path: /heavy
+            - name: mcc964
+              method: POST
+              path: /heavy
+            - name: mc2efe
+              method: POST
+              path: /heavy
+            - name: mc37e7
+              method: POST
+              path: /heavy
+            - name: s0696
+              method: POST
+              path: /heavy
+            - name: mc22fa
+              method: POST
+              path: /heavy
+            - name: s0696
+              method: POST
+              path: /heavy
+    - name: mcd3a0
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: sslateingress
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+          calls:
+            - name: s6f83
+              method: POST
+              path: /light
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+          calls:
+            - name: s6f83
+              method: POST
+              path: /heavy
+    - name: s6b3d
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+          calls:
+            - name: s598a
+              method: POST
+              path: /light
+            - name: s379e
+              method: POST
+              path: /light
+            - name: s30a8
+              method: POST
+              path: /light
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+          calls:
+            - name: s598a
+              method: POST
+              path: /heavy
+            - name: s379e
+              method: POST
+              path: /heavy
+            - name: s30a8
+              method: POST
+              path: /heavy
+    - name: s7325
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+    - name: mc39aa
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: mc01d6
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: db80f6
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 10240
+        - method: POST
+          path: /heavy
+          writeFileSize: 102400
+    - name: mc59ee
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: s69bc
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+    - name: s8110
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+    - name: s23bd
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+    - name: mc46a6
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: sd03b
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+          calls:
+            - name: mc676c
+              method: POST
+              path: /light
+            - name: mc01d6
+              method: POST
+              path: /light
+            - name: sb08b
+              method: POST
+              path: /light
+            - name: dbd1b5
+              method: POST
+              path: /light
+            - name: mc12c6
+              method: POST
+              path: /light
+            - name: mcd096
+              method: POST
+              path: /light
+            - name: mcc324
+              method: POST
+              path: /light
+            - name: db10bb
+              method: POST
+              path: /light
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+          calls:
+            - name: mc676c
+              method: POST
+              path: /heavy
+            - name: mc01d6
+              method: POST
+              path: /heavy
+            - name: sb08b
+              method: POST
+              path: /heavy
+            - name: dbd1b5
+              method: POST
+              path: /heavy
+            - name: mc12c6
+              method: POST
+              path: /heavy
+            - name: mcd096
+              method: POST
+              path: /heavy
+            - name: mcc324
+              method: POST
+              path: /heavy
+            - name: db10bb
+              method: POST
+              path: /heavy
+    - name: db3dd1
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 10240
+        - method: POST
+          path: /heavy
+          writeFileSize: 102400
+    - name: dbd1b5
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 10240
+        - method: POST
+          path: /heavy
+          writeFileSize: 102400
+    - name: s2387
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+          calls:
+            - name: mcfb47
+              method: POST
+              path: /light
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+          calls:
+            - name: mcfb47
+              method: POST
+              path: /heavy
+    - name: mcd096
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: sda5a
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+          calls:
+            - name: s69bc
+              method: POST
+              path: /light
+            - name: s3557
+              method: POST
+              path: /light
+            - name: s2be3
+              method: POST
+              path: /light
+            - name: sfd4d
+              method: POST
+              path: /light
+            - name: s8110
+              method: POST
+              path: /light
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+          calls:
+            - name: s69bc
+              method: POST
+              path: /heavy
+            - name: s3557
+              method: POST
+              path: /heavy
+            - name: s2be3
+              method: POST
+              path: /heavy
+            - name: sfd4d
+              method: POST
+              path: /heavy
+            - name: s8110
+              method: POST
+              path: /heavy
+    - name: s3557
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+    - name: s6190
+      methods:
+        - method: POST
+          path: /light
+          computeAmount: 20
+          computeDuration: 20
+        - method: POST
+          path: /heavy
+          computeAmount: 200
+          computeDuration: 20
+    - name: mc2efe
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: mc37e7
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240
+    - name: db10bb
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 10240
+        - method: POST
+          path: /heavy
+          writeFileSize: 102400
+    - name: db37c2
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 10240
+        - method: POST
+          path: /heavy
+          writeFileSize: 102400
+    - name: mcfb47
+      methods:
+        - method: POST
+          path: /light
+          writeFileSize: 1024
+        - method: POST
+          path: /heavy
+          writeFileSize: 10240

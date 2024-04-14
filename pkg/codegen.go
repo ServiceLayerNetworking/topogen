@@ -86,6 +86,13 @@ func (g *TopoCodeGenerator) Generate() error {
 	return nil
 }
 
+func min(a, b int) int {
+	if a < b {
+		return a
+	}
+	return b
+}
+
 func (g *TopoCodeGenerator) CleanseService(svc *Service) {
 	// todo add custom listening port values
 	for i, method := range svc.Methods {
@@ -94,11 +101,29 @@ func (g *TopoCodeGenerator) CleanseService(svc *Service) {
 				svc.Methods[i].Calls[j].Port = 8080
 			}
 		}
+		if len(method.ConcurrentCalls) == 0 {
+			if method.CallConcurrency == 0 {
+				method.CallConcurrency = 1
+			}
+			// divide calls into method.CallConcurrency groups of len(method.Calls) / method.CallConcurrency
+			concurrentCalls := [][]Call{}
+			step := len(method.Calls) / method.CallConcurrency
+			for i := 0; i < len(method.Calls); i += step {
+				// fmt.Printf("i: %v\n", i)
+				concurrentCalls = append(concurrentCalls, method.Calls[i:min(i+method.CallConcurrency, len(method.Calls))])
+			}
+			svc.Methods[i].ConcurrentCalls = concurrentCalls
+		}
+		// fmt.Printf("Concurrent calls: %v\n", svc.Methods[i].ConcurrentCalls)
 	}
+
+	// print
+	
+
 }
 
 func (g *TopoCodeGenerator) GenerateService(svc Service) string {
-	fmt.Printf("Generating service %s\n", svc.Name)
+	// fmt.Printf("Generating service %s\n", svc.Name)
 	g.CleanseService(&svc)
 	funcMap := template.FuncMap{
 		"replace": replace,
@@ -109,7 +134,6 @@ func (g *TopoCodeGenerator) GenerateService(svc Service) string {
 	}
 	// execute template
 	var buf bytes.Buffer
-	fmt.Printf("yo %v", svc)
 	if err := tmpl.Execute(&buf, svc); err != nil {
 		log.Fatalf("failed to execute template: %v", err)
 	}
